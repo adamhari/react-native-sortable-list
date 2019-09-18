@@ -364,13 +364,18 @@ export default class SortableList extends Component {
       rowIndex: rowUnderActiveIndex,
     } = this._findRowUnderActiveRow();
 
+    if (this._movingDirectionChanged) {
+      this._prevSwapedRowKey = null;
+    }
+
     // Swap rows if necessary.
-    if (rowUnderActiveKey !== activeRowKey) {
+    if (rowUnderActiveKey !== activeRowKey && rowUnderActiveKey !== this._prevSwapedRowKey) {
       const isNeighbours = Math.abs(rowUnderActiveIndex - activeRowIndex) === 1;
       let nextOrder;
 
       // If they are neighbours, swap elements, else shift.
       if (isNeighbours) {
+        this._prevSwapedRowKey = rowUnderActiveKey;
         nextOrder = swapArrayElements(order, activeRowIndex, rowUnderActiveIndex);
       } else {
         nextOrder = order.slice();
@@ -585,6 +590,7 @@ export default class SortableList extends Component {
   };
 
   _onReleaseRow = (rowKey) => {
+    this._prevSwapedRowKey = null;
     this._stopAutoScroll();
     this.setState(({activeRowKey}) => ({
       activeRowKey: null,
