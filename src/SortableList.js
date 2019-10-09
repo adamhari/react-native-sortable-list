@@ -452,7 +452,7 @@ export default class SortableList extends Component {
       x += currentRowLayout.width;
       y += currentRowLayout.height;
 
-      if (currentRowKey !== activeRowKey) {
+      // if (currentRowKey !== activeRowKey) {
 
       	console.log(
       		"rowTopY:", rowTopY,
@@ -472,7 +472,7 @@ export default class SortableList extends Component {
 						rowIndex: currentRowIndex,
 					};
 				}
-			}
+			// }
 
       // if (currentRowKey !== activeRowKey && (
       //   horizontal
