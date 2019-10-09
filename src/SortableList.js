@@ -403,7 +403,7 @@ export default class SortableList extends Component {
 	_findRowToAssociate() {
   	const {activeRowKey} = this.state;
 
-  	if (activeRowKey) {
+  	if (activeRowKey !== null) {
 			const rowUnderActive = this._findRowUnderActiveRow();
 
 			if (rowUnderActive) {
