@@ -439,7 +439,7 @@ export default class SortableList extends Component {
 
     for (
       let currentRowIndex = 0, x = 0, y = 0, rowsCount = order.length;
-      currentRowIndex < rowsCount;
+      currentRowIndex < rowsCount - 1;
       currentRowIndex++
     ) {
       const currentRowKey = order[currentRowIndex];
@@ -467,6 +467,8 @@ export default class SortableList extends Component {
 				rowTopY <= (y)  &&
 				rowBottomY >= (y)
 			) {
+				console.log("FOUND ROW TO ASSOCIATE:", currentRowKey, currentRowIndex, currentRowLayout);
+
 				return {
 					rowKey: order[currentRowIndex],
 					rowIndex: currentRowIndex,
