@@ -458,8 +458,8 @@ export default class SortableList extends Component {
 					"rowBottomY:", rowBottomY, "\n",
 					"x:", x, "\n",
 					"y:", y, "\n",
-					"currentRowLayout", currentRowLayout, "\n",
-					"nextRowLayout", nextRowLayout, "\n"
+					"currentRowLayout height:", currentRowLayout.height, "\n",
+					"nextRowLayout height:", nextRowLayout.height, "\n"
 				);
 
       	if (
