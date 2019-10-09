@@ -444,35 +444,43 @@ export default class SortableList extends Component {
     ) {
       const currentRowKey = order[currentRowIndex];
       const currentRowLayout = rowsLayouts[currentRowKey];
-      const nextRowIndex = currentRowIndex + 1;
-      const nextRowLayout = rowsLayouts[order[nextRowIndex]];
 
       x += currentRowLayout.width;
       y += currentRowLayout.height;
 
-      if (currentRowKey !== activeRowKey && (
-        horizontal
-          ? ((x - currentRowLayout.width / 2 <= rowLeftX || currentRowIndex === 0) && rowLeftX <= x - currentRowLayout.width / 2)
-          : ((y - currentRowLayout.height / 2 <= rowTopY || currentRowIndex === 0) && rowTopY <= y - currentRowLayout.height / 2)
-      )) {
-        return {
-          rowKey: order[currentRowIndex],
-          rowIndex: currentRowIndex,
-        };
-      }
+      if (currentRowKey !== activeRowKey) {
 
-      if (horizontal
-        ? (x + nextRowLayout.width / 2 <= rowRightX && (rowRightX <= x + nextRowLayout.width / 2 || nextRowIndex === rowsCount - 1))
-        : (y + nextRowLayout.height / 2 <= rowBottomY && (rowBottomY <= y + nextRowLayout.height / 2 || nextRowIndex === rowsCount - 1))
-      ) {
-        return {
-          rowKey: order[nextRowIndex],
-          rowIndex: nextRowIndex,
-        };
-      }
+      	if (y >= rowTopY && y <= rowBottomY) {
+					return {
+						rowKey: order[currentRowIndex],
+						rowIndex: currentRowIndex,
+					};
+				}
+			}
+
+      // if (currentRowKey !== activeRowKey && (
+      //   horizontal
+      //     ? ((x - currentRowLayout.width / 2 <= rowLeftX || currentRowIndex === 0) && rowLeftX <= x - currentRowLayout.width / 2)
+      //     : ((y - currentRowLayout.height / 2 <= rowTopY || currentRowIndex === 0) && rowTopY <= y - currentRowLayout.height / 2)
+      // )) {
+      //   return {
+      //     rowKey: order[currentRowIndex],
+      //     rowIndex: currentRowIndex,
+      //   };
+      // }
+			//
+      // if (horizontal
+      //   ? (x + nextRowLayout.width / 2 <= rowRightX && (rowRightX <= x + nextRowLayout.width / 2 || nextRowIndex === rowsCount - 1))
+      //   : (y + nextRowLayout.height / 2 <= rowBottomY && (rowBottomY <= y + nextRowLayout.height / 2 || nextRowIndex === rowsCount - 1))
+      // ) {
+      //   return {
+      //     rowKey: order[nextRowIndex],
+      //     rowIndex: nextRowIndex,
+      //   };
+      // }
     }
 
-    return {rowKey: activeRowKey, rowIndex: activeRowIndex};
+    // return {rowKey: activeRowKey, rowIndex: activeRowIndex};
   }
 
   _scrollOnMove(e) {
