@@ -466,7 +466,7 @@ export default class SortableList extends Component {
       if (currentRowKey !== activeRowKey) {
       	if (
       		rowTopY <= (y)  &&
-					rowBottomY >= (y - currentRowLayout.height)
+					rowBottomY >= (y)
 				) {
 					return {
 						rowKey: order[currentRowIndex],
