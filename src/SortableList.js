@@ -418,6 +418,11 @@ export default class SortableList extends Component {
 						associatedRowIndex: rowUnderActiveIndex
 					});
 				}
+			} else {
+				this.setState({
+					associatedRowKey: null,
+					associatedRowIndex: null
+				})
 			}
 		}
 	}
