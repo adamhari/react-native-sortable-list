@@ -232,7 +232,7 @@ export default class SortableList extends Component {
 
   _renderRows() {
     const {horizontal, rowActivationTime, sortingEnabled, renderRow} = this.props;
-    const {animated, order, data, activeRowKey, releasedRowKey, rowsLayouts} = this.state;
+    const {animated, order, data, activeRowKey, associatedRowKey, releasedRowKey, rowsLayouts} = this.state;
 
 
     let nextX = 0;
@@ -253,11 +253,16 @@ export default class SortableList extends Component {
       }
 
       const active = activeRowKey === key;
+      const associated = associatedRowKey === key;
       const released = releasedRowKey === key;
 
       if (active || released) {
         style[ZINDEX] = 100;
       }
+
+      if (associated) {
+      	style.backgroundColor = 'red';
+			}
 
       return (
         <Row
@@ -394,6 +399,20 @@ export default class SortableList extends Component {
     }
   }
 
+	_findRowToAssociate() {
+		const {
+			rowKey: rowUnderActiveKey,
+			rowIndex: rowUnderActiveIndex,
+		} = this._findRowUnderActiveRow();
+
+		if (rowUnderActiveKey && rowUnderActiveIndex) {
+			this.setState({
+				associatedRowKey: rowUnderActiveKey,
+				associatedRowIndex: rowUnderActiveIndex
+			});
+		}
+	}
+
   /**
    * Finds a row, which was covered with the moving row’s half.
    */
@@ -401,7 +420,7 @@ export default class SortableList extends Component {
     const {horizontal} = this.props;
     const {rowsLayouts, activeRowKey, activeRowIndex, order} = this.state;
     const movingRowLayout = rowsLayouts[activeRowKey];
-    const rowLeftX = this._activeRowLocation.x
+    const rowLeftX = this._activeRowLocation.x;
     const rowRightX = rowLeftX + movingRowLayout.width;
     const rowTopY = this._activeRowLocation.y;
     const rowBottomY = rowTopY + movingRowLayout.height;
@@ -421,8 +440,8 @@ export default class SortableList extends Component {
 
       if (currentRowKey !== activeRowKey && (
         horizontal
-          ? ((x - currentRowLayout.width <= rowLeftX || currentRowIndex === 0) && rowLeftX <= x - currentRowLayout.width / 3)
-          : ((y - currentRowLayout.height <= rowTopY || currentRowIndex === 0) && rowTopY <= y - currentRowLayout.height / 3)
+          ? ((x - currentRowLayout.width <= rowLeftX || currentRowIndex === 0) && rowLeftX <= x - currentRowLayout.width)
+          : ((y - currentRowLayout.height <= rowTopY || currentRowIndex === 0) && rowTopY <= y - currentRowLayout.height)
       )) {
         return {
           rowKey: order[currentRowIndex],
@@ -431,8 +450,8 @@ export default class SortableList extends Component {
       }
 
       if (horizontal
-        ? (x + nextRowLayout.width / 3 <= rowRightX && (rowRightX <= x + nextRowLayout.width || nextRowIndex === rowsCount - 1))
-        : (y + nextRowLayout.height / 3 <= rowBottomY && (rowBottomY <= y + nextRowLayout.height || nextRowIndex === rowsCount - 1))
+        ? (x + nextRowLayout.width <= rowRightX && (rowRightX <= x + nextRowLayout.width || nextRowIndex === rowsCount - 1))
+        : (y + nextRowLayout.height <= rowBottomY && (rowBottomY <= y + nextRowLayout.height || nextRowIndex === rowsCount - 1))
       ) {
         return {
           rowKey: order[nextRowIndex],
@@ -441,7 +460,7 @@ export default class SortableList extends Component {
       }
     }
 
-    return {rowKey: activeRowKey, rowIndex: activeRowIndex};
+    // return {rowKey: activeRowKey, rowIndex: activeRowIndex};
   }
 
   _scrollOnMove(e) {
@@ -615,7 +634,8 @@ export default class SortableList extends Component {
       : prevMovingRowY < this._activeRowLocation.y;
 
     this._movingDirectionChanged = prevMovingDirection !== this._movingDirection;
-    this._setOrderOnMove();
+    // this._setOrderOnMove();
+		this._findRowToAssociate();
 
     if (this.props.scrollEnabled) {
       this._scrollOnMove(e);
