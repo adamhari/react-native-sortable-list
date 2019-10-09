@@ -445,15 +445,16 @@ export default class SortableList extends Component {
       const currentRowKey = order[currentRowIndex];
       const currentRowLayout = rowsLayouts[currentRowKey];
 
+      const nextRowIndex = currentRowIndex + 1;
+      const nextRowKey = order[nextRowIndex];
+      const nextRowLayout = rowsLayouts[nextRowKey];
+
       x += currentRowLayout.width;
       y += currentRowLayout.height;
 
       if (currentRowKey !== activeRowKey) {
 
-      	if (
-					(rowTopY <= y  && rowBottomY >= y) ||
-					(activeRowKey === 0 && rowBottomY >= y)
-				) {
+      	if (rowTopY >= y  && rowBottomY <= (y + nextRowLayout.height)) {
 					return {
 						rowKey: order[currentRowIndex],
 						rowIndex: currentRowIndex,
