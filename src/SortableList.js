@@ -457,8 +457,8 @@ export default class SortableList extends Component {
 
       if (currentRowKey !== activeRowKey && (
         horizontal
-          ? ((x - currentRowLayout.width <= rowLeftX || currentRowIndex === 0) && rowLeftX <= x - currentRowLayout.width / 4)
-          : ((y - currentRowLayout.height <= rowTopY || currentRowIndex === 0) && rowTopY <= y - currentRowLayout.height / 4)
+          ? ((x - currentRowLayout.width <= rowLeftX || currentRowIndex === 0) && rowLeftX <= x - currentRowLayout.width / 2)
+          : ((y - currentRowLayout.height <= rowTopY || currentRowIndex === 0) && rowTopY <= y - currentRowLayout.height / 2)
       )) {
         return {
           rowKey: order[currentRowIndex],
@@ -467,8 +467,8 @@ export default class SortableList extends Component {
       }
 
       if (horizontal
-        ? (x + nextRowLayout.width / 4 <= rowRightX && (rowRightX <= x + nextRowLayout.width || nextRowIndex === rowsCount - 1))
-        : (y + nextRowLayout.height / 4 <= rowBottomY && (rowBottomY <= y + nextRowLayout.height || nextRowIndex === rowsCount - 1))
+        ? (x + nextRowLayout.width / 2 <= rowRightX && (rowRightX <= x + nextRowLayout.width || nextRowIndex === rowsCount - 1))
+        : (y + nextRowLayout.height / 2 <= rowBottomY && (rowBottomY <= y + nextRowLayout.height || nextRowIndex === rowsCount - 1))
       ) {
         return {
           rowKey: order[nextRowIndex],
@@ -631,6 +631,8 @@ export default class SortableList extends Component {
     this.setState(({activeRowKey}) => ({
       activeRowKey: null,
       activeRowIndex: null,
+			associatedRowKey: null,
+			associatedRowIndex: null,
       releasedRowKey: activeRowKey,
       scrollEnabled: this.props.scrollEnabled,
     }));
