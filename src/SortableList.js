@@ -400,16 +400,24 @@ export default class SortableList extends Component {
   }
 
 	_findRowToAssociate() {
-		const {
-			rowKey: rowUnderActiveKey,
-			rowIndex: rowUnderActiveIndex,
-		} = this._findRowUnderActiveRow();
+  	const {activeRowKey} = this.state;
 
-		if (rowUnderActiveKey && rowUnderActiveIndex) {
-			this.setState({
-				associatedRowKey: rowUnderActiveKey,
-				associatedRowIndex: rowUnderActiveIndex
-			});
+  	if (activeRowKey) {
+			const rowUnderActive = this._findRowUnderActiveRow();
+
+			if (rowUnderActive) {
+				const {
+					rowKey: rowUnderActiveKey,
+					rowIndex: rowUnderActiveIndex,
+				} = rowUnderActive;
+
+				if (rowUnderActiveKey && rowUnderActiveIndex) {
+					this.setState({
+						associatedRowKey: rowUnderActiveKey,
+						associatedRowIndex: rowUnderActiveIndex
+					});
+				}
+			}
 		}
 	}
 
