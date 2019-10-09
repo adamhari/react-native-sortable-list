@@ -261,8 +261,8 @@ export default class SortableList extends Component {
       }
 
       if (associated) {
-      	style.borderColor = 'red';
-      	style.borderWidth = 1;
+      	style.borderTopColor = 'red';
+      	style.borderTopWidth = 1;
 			}
 
       return (
@@ -439,7 +439,7 @@ export default class SortableList extends Component {
 
     for (
       let currentRowIndex = 0, x = 0, y = 0, rowsCount = order.length;
-      currentRowIndex < rowsCount - 1;
+      currentRowIndex < rowsCount;
       currentRowIndex++
     ) {
       const currentRowKey = order[currentRowIndex];
