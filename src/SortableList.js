@@ -412,7 +412,10 @@ export default class SortableList extends Component {
 					rowIndex: rowUnderActiveIndex,
 				} = rowUnderActive;
 
-				if (rowUnderActiveKey && rowUnderActiveIndex) {
+				if (
+					rowUnderActiveKey && rowUnderActiveIndex &&
+					rowUnderActiveKey !== activeRowKey
+				) {
 					this.setState({
 						associatedRowKey: rowUnderActiveKey,
 						associatedRowIndex: rowUnderActiveIndex
