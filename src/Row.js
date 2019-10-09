@@ -173,7 +173,7 @@ export default class Row extends Component {
     return (
       <Animated.View
         {...this._panResponder.panHandlers}
-        style={[rowStyle, {marginBottom: 10}]}
+        style={rowStyle}
         onLayout={this._onLayout}>
         {this.props.manuallyActivateRows && children
           ? cloneElement(children, {
