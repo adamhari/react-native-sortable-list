@@ -452,16 +452,18 @@ export default class SortableList extends Component {
       x += currentRowLayout.width;
       y += currentRowLayout.height;
 
-      if (currentRowKey !== activeRowKey) {
-      	console.log(
-      		"rowTopY:", rowTopY, "\n",
-					"rowBottomY:", rowBottomY, "\n",
-					"x:", x, "\n",
-					"y:", y, "\n",
-					"currentRowLayout height:", currentRowLayout.height, "\n",
-					"nextRowLayout height:", nextRowLayout.height, "\n"
-				);
+			console.log(
+				"rowTopY:", rowTopY, "\n",
+				"rowBottomY:", rowBottomY, "\n",
+				"x:", x, "\n",
+				"y:", y, "\n",
+				"currentRowLayout height:", currentRowLayout.height, "\n",
+				"nextRowLayout height:", nextRowLayout.height, "\n",
+				"currentRowKey:", currentRowKey, "\n",
+				"activeRowKey:", activeRowKey
+			);
 
+      if (currentRowKey !== activeRowKey) {
       	if (
       		rowTopY >= (y - currentRowLayout.height)  &&
 					rowBottomY <= (y + nextRowLayout.height)
