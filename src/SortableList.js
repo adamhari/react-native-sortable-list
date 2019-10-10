@@ -456,15 +456,15 @@ export default class SortableList extends Component {
 					rowTopY <= (y)  &&
 					rowBottomY >= (y)
 				) {
-					console.log(
-						"rowTopY:", rowTopY, "\n",
-						"rowBottomY:", rowBottomY, "\n",
-						"x:", x, "\n",
-						"y:", y, "\n",
-						"currentRowLayout height:", currentRowLayout.height, "\n",
-						"currentRowKey:", currentRowKey, "\n",
-						"activeRowKey:", activeRowKey
-					);
+					// console.log(
+					// 	"rowTopY:", rowTopY, "\n",
+					// 	"rowBottomY:", rowBottomY, "\n",
+					// 	"x:", x, "\n",
+					// 	"y:", y, "\n",
+					// 	"currentRowLayout height:", currentRowLayout.height, "\n",
+					// 	"currentRowKey:", currentRowKey, "\n",
+					// 	"activeRowKey:", activeRowKey
+					// );
 
 					return {
 						rowKey: order[currentRowIndex],
@@ -646,6 +646,14 @@ export default class SortableList extends Component {
   _onReleaseRow = (rowKey) => {
     this._prevSwapedRowKey = null;
     this._stopAutoScroll();
+
+    const {data, order} = this.props;
+    const {associableRowKey} = this.state;
+
+    if (associableRowKey) {
+    	this.props.onReleaseRow(order[rowKey], order[associableRowKey]);
+		}
+
     this.setState(({activeRowKey}) => ({
       activeRowKey: null,
       activeRowIndex: null,
@@ -655,9 +663,9 @@ export default class SortableList extends Component {
       scrollEnabled: this.props.scrollEnabled,
     }));
 
-    if (this.props.onReleaseRow) {
-      this.props.onReleaseRow(rowKey, this.state.order);
-    }
+    // if (this.props.onReleaseRow) {
+    //   this.props.onReleaseRow(rowKey, this.state.order);
+    // }
   };
 
   _onMoveRow = (e, gestureState, location) => {
