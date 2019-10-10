@@ -450,10 +450,6 @@ export default class SortableList extends Component {
       const currentRowKey = order[currentRowIndex];
       const currentRowLayout = rowsLayouts[currentRowKey];
 
-      const nextRowIndex = currentRowIndex + 1;
-      const nextRowKey = order[nextRowIndex];
-      const nextRowLayout = rowsLayouts[nextRowKey];
-
       x += currentRowLayout.width;
       y += currentRowLayout.height;
 
@@ -470,7 +466,6 @@ export default class SortableList extends Component {
 						"x:", x, "\n",
 						"y:", y, "\n",
 						"currentRowLayout height:", currentRowLayout.height, "\n",
-						"nextRowLayout height:", nextRowLayout.height, "\n",
 						"currentRowKey:", currentRowKey, "\n",
 						"activeRowKey:", activeRowKey
 					);
