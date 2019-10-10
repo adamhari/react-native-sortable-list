@@ -433,11 +433,6 @@ export default class SortableList extends Component {
     const rowTopY = this._activeRowLocation.y;
     const rowBottomY = rowTopY + movingRowLayout.height;
 
-    console.log(
-    	"order:", order, "\n",
-			"rowLayouts:", rowsLayouts, "\n"
-			);
-
     for (
       let currentRowIndex = 0, x = 0, y = 0, rowsCount = order.length;
       currentRowIndex < rowsCount;
@@ -450,7 +445,6 @@ export default class SortableList extends Component {
       y += currentRowLayout.height;
 
       if (currentRowKey !== activeRowKey) {
-
 
 				if (
 					rowTopY <= (y - (currentRowLayout.height / 2))  &&
