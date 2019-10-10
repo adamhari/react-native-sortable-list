@@ -651,7 +651,7 @@ export default class SortableList extends Component {
     const {associableRowKey} = this.state;
 
     if (associableRowKey) {
-    	this.props.onReleaseRow(order[rowKey], order[associableRowKey]);
+    	this.props.onReleaseRow(data[rowKey], data[associableRowKey]);
 		}
 
     this.setState(({activeRowKey}) => ({
