@@ -453,8 +453,8 @@ export default class SortableList extends Component {
 
 
 				if (
-					rowTopY <= (y)  &&
-					rowBottomY >= (y)
+					rowTopY <= (y - (currentRowLayout / 2))  &&
+					rowBottomY >= (y - (currentRowLayout / 2))
 				) {
 					// console.log(
 					// 	"rowTopY:", rowTopY, "\n",
