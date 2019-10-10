@@ -260,11 +260,6 @@ export default class SortableList extends Component {
         style[ZINDEX] = 100;
       }
 
-      if (associable) {
-      	style.border = 'gray';
-      	style.borderBottomWidth = StyleSheet.hairlineWidth;
-			}
-
       return (
         <Row
           key={uniqueRowKey(key)}
