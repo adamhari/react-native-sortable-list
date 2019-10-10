@@ -444,7 +444,7 @@ export default class SortableList extends Component {
 
     for (
       let currentRowIndex = 0, x = 0, y = 0, rowsCount = order.length;
-      currentRowIndex < rowsCount - 1;
+      currentRowIndex < rowsCount;
       currentRowIndex++
     ) {
       const currentRowKey = order[currentRowIndex];
