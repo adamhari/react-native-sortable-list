@@ -261,8 +261,8 @@ export default class SortableList extends Component {
       }
 
       if (associated) {
-      	style.borderTopColor = 'red';
-      	style.borderTopWidth = 1;
+      	style.borderBottomColor = 'gray';
+      	style.borderTopWidth = StyleSheet.hairlineWidth;
 			}
 
       return (
