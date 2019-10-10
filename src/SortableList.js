@@ -641,12 +641,10 @@ export default class SortableList extends Component {
     this._prevSwapedRowKey = null;
     this._stopAutoScroll();
 
-    const {data, order} = this.props;
+    const {data} = this.props;
     const {associableRowKey} = this.state;
 
-    if (associableRowKey) {
-    	this.props.onReleaseRow(data[rowKey], data[associableRowKey]);
-		}
+		this.props.onReleaseRow(data[rowKey], data[associableRowKey]);
 
     this.setState(({activeRowKey}) => ({
       activeRowKey: null,
@@ -656,10 +654,6 @@ export default class SortableList extends Component {
       releasedRowKey: activeRowKey,
       scrollEnabled: this.props.scrollEnabled,
     }));
-
-    // if (this.props.onReleaseRow) {
-    //   this.props.onReleaseRow(rowKey, this.state.order);
-    // }
   };
 
   _onMoveRow = (e, gestureState, location) => {
