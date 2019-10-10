@@ -232,7 +232,7 @@ export default class SortableList extends Component {
 
   _renderRows() {
     const {horizontal, rowActivationTime, sortingEnabled, renderRow} = this.props;
-    const {animated, order, data, activeRowKey, associatedRowKey, releasedRowKey, rowsLayouts} = this.state;
+    const {animated, order, data, activeRowKey, associableRowKey, releasedRowKey, rowsLayouts} = this.state;
 
 
     let nextX = 0;
@@ -253,15 +253,15 @@ export default class SortableList extends Component {
       }
 
       const active = activeRowKey === key;
-      const associated = associatedRowKey === key;
+      const associable = associableRowKey === key;
       const released = releasedRowKey === key;
 
       if (active || released) {
         style[ZINDEX] = 100;
       }
 
-      if (associated) {
-      	style.borderBottomColor = 'gray';
+      if (associable) {
+      	style.border = 'gray';
       	style.borderBottomWidth = StyleSheet.hairlineWidth;
 			}
 
@@ -286,6 +286,7 @@ export default class SortableList extends Component {
             data: data[key],
             disabled: !sortingEnabled,
             active,
+						associable,
             index,
           })}
         </Row>
@@ -413,13 +414,13 @@ export default class SortableList extends Component {
 				} = rowUnderActive;
 
 				this.setState({
-					associatedRowKey: rowUnderActiveKey,
-					associatedRowIndex: rowUnderActiveIndex
+					associableRowKey: rowUnderActiveKey,
+					associableRowIndex: rowUnderActiveIndex
 				});
 			} else {
 				this.setState({
-					associatedRowKey: null,
-					associatedRowIndex: null
+					associableRowKey: null,
+					associableRowIndex: null
 				})
 			}
 		}
@@ -653,8 +654,8 @@ export default class SortableList extends Component {
     this.setState(({activeRowKey}) => ({
       activeRowKey: null,
       activeRowIndex: null,
-			associatedRowKey: null,
-			associatedRowIndex: null,
+			associableRowKey: null,
+			associableRowIndex: null,
       releasedRowKey: activeRowKey,
       scrollEnabled: this.props.scrollEnabled,
     }));

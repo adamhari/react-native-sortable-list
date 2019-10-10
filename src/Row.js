@@ -257,7 +257,6 @@ const styles = StyleSheet.create({
   },
   verticalContainer: {
     left: 0,
-    right: 0,
-		paddingBottom: 10
+    right: 0
   },
 });
