@@ -452,27 +452,29 @@ export default class SortableList extends Component {
       x += currentRowLayout.width;
       y += currentRowLayout.height;
 
-			console.log(
-				"rowTopY:", rowTopY, "\n",
-				"rowBottomY:", rowBottomY, "\n",
-				"x:", x, "\n",
-				"y:", y, "\n",
-				"currentRowLayout height:", currentRowLayout.height, "\n",
-				"nextRowLayout height:", nextRowLayout.height, "\n",
-				"currentRowKey:", currentRowKey, "\n",
-				"activeRowKey:", activeRowKey
-			);
+      if (currentRowKey !== activeRowKey) {
+				console.log(
+					"rowTopY:", rowTopY, "\n",
+					"rowBottomY:", rowBottomY, "\n",
+					"x:", x, "\n",
+					"y:", y, "\n",
+					"currentRowLayout height:", currentRowLayout.height, "\n",
+					"nextRowLayout height:", nextRowLayout.height, "\n",
+					"currentRowKey:", currentRowKey, "\n",
+					"activeRowKey:", activeRowKey
+				);
 
-			if (
-				rowTopY <= (y)  &&
-				rowBottomY >= (y)
-			) {
-				console.log("FOUND ROW TO ASSOCIATE:", currentRowKey, currentRowIndex, currentRowLayout);
+				if (
+					rowTopY <= (y)  &&
+					rowBottomY >= (y)
+				) {
+					console.log("FOUND ROW TO ASSOCIATE:", currentRowKey, currentRowIndex, currentRowLayout);
 
-				return {
-					rowKey: order[currentRowIndex],
-					rowIndex: currentRowIndex,
-				};
+					return {
+						rowKey: order[currentRowIndex],
+						rowIndex: currentRowIndex,
+					};
+				}
 			}
 
       // if (currentRowKey !== activeRowKey && (
