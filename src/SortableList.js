@@ -437,6 +437,11 @@ export default class SortableList extends Component {
     const rowTopY = this._activeRowLocation.y;
     const rowBottomY = rowTopY + movingRowLayout.height;
 
+    console.log(
+    	"order:", order, "\n",
+			"rowLayouts:", rowsLayouts, "\n"
+			);
+
     for (
       let currentRowIndex = 0, x = 0, y = 0, rowsCount = order.length;
       currentRowIndex < rowsCount - 1;
@@ -453,22 +458,22 @@ export default class SortableList extends Component {
       y += currentRowLayout.height;
 
       if (currentRowKey !== activeRowKey) {
-				console.log(
-					"rowTopY:", rowTopY, "\n",
-					"rowBottomY:", rowBottomY, "\n",
-					"x:", x, "\n",
-					"y:", y, "\n",
-					"currentRowLayout height:", currentRowLayout.height, "\n",
-					"nextRowLayout height:", nextRowLayout.height, "\n",
-					"currentRowKey:", currentRowKey, "\n",
-					"activeRowKey:", activeRowKey
-				);
+
 
 				if (
 					rowTopY <= (y)  &&
 					rowBottomY >= (y)
 				) {
-					console.log("FOUND ROW TO ASSOCIATE:", currentRowKey, currentRowIndex, currentRowLayout);
+					console.log(
+						"rowTopY:", rowTopY, "\n",
+						"rowBottomY:", rowBottomY, "\n",
+						"x:", x, "\n",
+						"y:", y, "\n",
+						"currentRowLayout height:", currentRowLayout.height, "\n",
+						"nextRowLayout height:", nextRowLayout.height, "\n",
+						"currentRowKey:", currentRowKey, "\n",
+						"activeRowKey:", activeRowKey
+					);
 
 					return {
 						rowKey: order[currentRowIndex],
