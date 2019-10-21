@@ -94,7 +94,8 @@ export default class SortableList extends Component {
   }
 
   componentDidMount() {
-    this._onUpdateLayouts();
+    setTimeout(this._onUpdateLayouts, 150);
+
   }
 
   componentWillReceiveProps(nextProps) {
