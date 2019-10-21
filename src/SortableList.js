@@ -215,6 +215,7 @@ export default class SortableList extends Component {
           ref={this._onRefScrollView}
           horizontal={horizontal}
           contentContainerStyle={contentContainerStyle}
+          nestedScrollEnabled={true}
           scrollEventThrottle={2}
           scrollEnabled={scrollEnabled}
           showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
@@ -350,52 +351,6 @@ export default class SortableList extends Component {
     this._scrollView.scrollTo({...this._contentOffset, animated});
   }
 
-  /**
-   * Finds a row under the moving row, if they are neighbours,
-   * swaps them, else shifts rows.
-   */
-  _setOrderOnMove() {
-    const {activeRowKey, activeRowIndex, order} = this.state;
-
-    if (activeRowKey === null || this._autoScrollInterval) {
-      return;
-    }
-
-    let {
-      rowKey: rowUnderActiveKey,
-      rowIndex: rowUnderActiveIndex,
-    } = this._findRowUnderActiveRow();
-
-    if (this._movingDirectionChanged) {
-      this._prevSwapedRowKey = null;
-    }
-
-    // Swap rows if necessary.
-    if (rowUnderActiveKey !== activeRowKey && rowUnderActiveKey !== this._prevSwapedRowKey) {
-      const isNeighbours = Math.abs(rowUnderActiveIndex - activeRowIndex) === 1;
-      let nextOrder;
-
-      // If they are neighbours, swap elements, else shift.
-      if (isNeighbours) {
-        this._prevSwapedRowKey = rowUnderActiveKey;
-        nextOrder = swapArrayElements(order, activeRowIndex, rowUnderActiveIndex);
-      } else {
-        nextOrder = order.slice();
-        nextOrder.splice(activeRowIndex, 1);
-        nextOrder.splice(rowUnderActiveIndex, 0, activeRowKey);
-      }
-
-      this.setState({
-        order: nextOrder,
-        activeRowIndex: rowUnderActiveIndex,
-      }, () => {
-        if (this.props.onChangeOrder) {
-          this.props.onChangeOrder(nextOrder);
-        }
-      });
-    }
-  }
-
 	_findRowToAssociate() {
   	const {activeRowKey} = this.state;
 
@@ -466,30 +421,7 @@ export default class SortableList extends Component {
 					};
 				}
 			}
-
-      // if (currentRowKey !== activeRowKey && (
-      //   horizontal
-      //     ? ((x - currentRowLayout.width / 2 <= rowLeftX || currentRowIndex === 0) && rowLeftX <= x - currentRowLayout.width / 2)
-      //     : ((y - currentRowLayout.height / 2 <= rowTopY || currentRowIndex === 0) && rowTopY <= y - currentRowLayout.height / 2)
-      // )) {
-      //   return {
-      //     rowKey: order[currentRowIndex],
-      //     rowIndex: currentRowIndex,
-      //   };
-      // }
-			//
-      // if (horizontal
-      //   ? (x + nextRowLayout.width / 2 <= rowRightX && (rowRightX <= x + nextRowLayout.width / 2 || nextRowIndex === rowsCount - 1))
-      //   : (y + nextRowLayout.height / 2 <= rowBottomY && (rowBottomY <= y + nextRowLayout.height / 2 || nextRowIndex === rowsCount - 1))
-      // ) {
-      //   return {
-      //     rowKey: order[nextRowIndex],
-      //     rowIndex: nextRowIndex,
-      //   };
-      // }
     }
-
-    // return {rowKey: activeRowKey, rowIndex: activeRowIndex};
   }
 
   _scrollOnMove(e) {
@@ -667,7 +599,6 @@ export default class SortableList extends Component {
       : prevMovingRowY < this._activeRowLocation.y;
 
     this._movingDirectionChanged = prevMovingDirection !== this._movingDirection;
-    // this._setOrderOnMove();
 		this._findRowToAssociate();
 
     if (this.props.scrollEnabled) {
