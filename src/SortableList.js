@@ -589,7 +589,7 @@ export default class SortableList extends Component {
     }));
   };
 
-  _onMoveRow = (e, gestureState, location) => {
+  _onMoveRow = (e, gestureState, location, activeRow) => {
     const prevMovingRowX = this._activeRowLocation.x;
     const prevMovingRowY = this._activeRowLocation.y;
     const prevMovingDirection = this._movingDirection;
@@ -600,7 +600,7 @@ export default class SortableList extends Component {
       : prevMovingRowY < this._activeRowLocation.y;
 
 		this._findRowToAssociate();
-		this.props.onMoveRow(e, gestureState, location);
+		this.props.onMoveRow(e, gestureState, location, activeRow);
 
     if (this.props.scrollEnabled) {
       this._scrollOnMove(e);

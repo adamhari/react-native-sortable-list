@@ -99,7 +99,7 @@ export default class Row extends Component {
       this._prevGestureState = {...gestureState};
 
       if (this.props.onMove) {
-        this.props.onMove(e, gestureState, this._nextLocation);
+        this.props.onMove(e, gestureState, this._nextLocation, this);
       }
     },
 
