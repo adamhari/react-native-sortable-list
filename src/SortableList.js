@@ -37,9 +37,7 @@ export default class SortableList extends Component {
     onChangeOrder: PropTypes.func,
     onActivateRow: PropTypes.func,
     onReleaseRow: PropTypes.func,
-    onMoveRow: PropTypes.func,
-
-    onLayout: PropTypes.func
+    onMoveRow: PropTypes.func
   };
 
   static defaultProps = {
@@ -627,7 +625,6 @@ export default class SortableList extends Component {
 
   _onContainerLayout = ({ nativeEvent: { layout }}) => {
     this.containerLayout = layout;
-    this.props.onLayout(layout);
   }
 }
 
