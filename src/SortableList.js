@@ -37,6 +37,7 @@ export default class SortableList extends Component {
     onChangeOrder: PropTypes.func,
     onActivateRow: PropTypes.func,
     onReleaseRow: PropTypes.func,
+    onMoveRow: PropTypes.func
   };
 
   static defaultProps = {
@@ -94,8 +95,7 @@ export default class SortableList extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this._onUpdateLayouts.bind(this), 150);
-
+    this._onUpdateLayouts();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -599,8 +599,8 @@ export default class SortableList extends Component {
       ? prevMovingRowX < this._activeRowLocation.x
       : prevMovingRowY < this._activeRowLocation.y;
 
-    this._movingDirectionChanged = prevMovingDirection !== this._movingDirection;
 		this._findRowToAssociate();
+		this.props.onMoveRow(e, gestureState, location);
 
     if (this.props.scrollEnabled) {
       this._scrollOnMove(e);
